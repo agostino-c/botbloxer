@@ -40,19 +40,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-    
-
-
-
-"""
-
-
-
-    
-
-class VerifiedDiscords(models.Model):
-    discordID = models.CharField(max_length=150)
-    state = models.CharField(max_length=255)
-    taken = models.BooleanField(default=False)
-
-"""

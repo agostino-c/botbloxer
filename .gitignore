@@ -1,3 +1,2 @@
 django/venv/
 *.env
-django/registration/models.py
