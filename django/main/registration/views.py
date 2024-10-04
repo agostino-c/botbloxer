@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
-from .utils import generate_code_verifier, generate_code_challenge
+from .utils import generate_code_verifier, generate_code_challenge, check_roblox_token
 from rest_framework.decorators import api_view
 import requests
 from django.conf import settings
@@ -66,7 +66,11 @@ def VerifyRobloxCallback(request):
     if response.status_code == 200:
         token_data = response.json()
         print("Access Token:", token_data.get('access_token'))
-        return HttpResponse(status=200)
+        TokenValid = check_roblox_token(token_data.get('access_token'))
+        if TokenValid == True:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=401)
     else:
         print("Error:", response.status_code, response.json())
         return HttpResponse(status=400)

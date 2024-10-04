@@ -1,6 +1,7 @@
 import os
 import hashlib
 import base64
+import requests
 
 
 # Generate Code Verifier for Roblox PKCE
@@ -17,6 +18,25 @@ def generate_code_challenge(code_verifier):
     # Base64 URL encode the hash
     code_challenge = base64.urlsafe_b64encode(sha256_hash).decode('utf-8').rstrip('=')
     return code_challenge
+
+
+# Check if ROBLOX OAuth2 Token is Valid for User
+def check_roblox_token(code):
+    user_url = "https://apis.roblox.com/oauth/v1/userinfo"
+    headers = {
+        "Authorization": f"Bearer {code}"
+    }
+
+
+    response = requests.get(user_url, headers=headers)
+    print(response.json())
+
+    if response.status_code == 200:
+        return True
+    else:
+        return False
+    
+
 
 # Tests
 # code_verifier = generate_code_verifier()
