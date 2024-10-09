@@ -31,6 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    roblox_profile = models.ForeignKey('RobloxUser', on_delete=models.CASCADE, null=True)
 
     objects = CustomUserManager()
 
@@ -48,6 +49,7 @@ class RobloxUser(models.Model):
     robloxID = models.CharField(max_length=255, unique=True)
     isBanned = models.BooleanField(default=False)
     banHistory = models.JSONField(default=dict)
+
 
     def __str__(self):
         return self.robloxID
