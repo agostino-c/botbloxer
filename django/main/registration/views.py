@@ -84,3 +84,10 @@ def VerifyRobloxCallback(request):
     else:
         print("Error:", response.status_code, response.json())
         return HttpResponse(status=400)
+    
+
+
+class StaffRegistration(APIView):
+    def get(self, request):
+        
+        return render(request, 'bot/registration/staff.html', {})
