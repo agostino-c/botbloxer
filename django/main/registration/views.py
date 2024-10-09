@@ -8,6 +8,7 @@ from django.conf import settings
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth import get_user_model
+from .models import RobloxUser
 
 UserBase = get_user_model()
 
@@ -71,9 +72,8 @@ def VerifyRobloxCallback(request):
         TokenValid = check_roblox_token(token_data.get('access_token'))
         if TokenValid != False:
 
-            newUser = UserBase.objects.create(
+            newUser = RobloxUser.objects.create(
                 robloxID = TokenValid.get('userID'),
-                username = TokenValid.get('username')
             )
 
             newUser.save()

@@ -31,7 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    roblox_profile = models.ForeignKey('RobloxUser', on_delete=models.CASCADE, null=True)
+    roblox_profile = models.ForeignKey('RobloxUser', related_name='Account', on_delete=models.CASCADE, null=True)
 
     objects = CustomUserManager()
 
@@ -56,4 +56,4 @@ class RobloxUser(models.Model):
     
     class Meta:
         # Verbose Name for Django Admin
-        verbose_name = 'Members'
+        verbose_name = 'Member'

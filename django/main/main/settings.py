@@ -36,6 +36,10 @@ ROBLOX_CLIENT_SECRET = os.getenv('ROBLOX_CLIENT_SECRET')
 # CHANGE TO .ENV
 SERVER_NAME = "BotBloxer"
 
+
+DISCORD_BOT_SECRET = os.getenv('DISCORD_BOT_SECRET')
+
+
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'registration.CustomUser'
@@ -52,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'registration',
+    'bot',
 ]
 
 MIDDLEWARE = [
