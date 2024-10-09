@@ -3,21 +3,24 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, robloxID, username):
-        if not username: raise ValueError("User must have a valid username")
+    def create_user(self, robloxID, username, password):
+        if not username:
+            raise ValueError("User must have a valid username")
         if not robloxID:
-            # Add some sort of handshake check to see if this is valid?
             raise ValueError('User must have a valid Roblox User ID')
         
+        if not password:
+            raise ValueError("No password was provided")
+        
         user = self.model(robloxID=robloxID, username=username)
-        # user.set_password(password)
+        user.set_password(password)
         user.save(using=self._db)
 
         return user
-    
 
-    def create_superuser(self, robloxID, username, password):
-        user = self.create_user(robloxID, username, password)
+    def create_superuser(self, robloxID, username, password=None, **kwargs):
+        kwargs['password'] = password
+        user = self.create_user(robloxID, username, **kwargs)
         user.is_superuser = True
         user.is_staff = True
 
@@ -40,3 +43,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    class Meta:
+        verbose_name = 'Django User'

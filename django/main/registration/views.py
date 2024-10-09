@@ -7,6 +7,9 @@ import requests
 from django.conf import settings
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth import get_user_model
+
+UserBase = get_user_model()
 
 #from django.middleware.csrf import get_token
 # Create your views here.
@@ -65,9 +68,16 @@ def VerifyRobloxCallback(request):
 
     if response.status_code == 200:
         token_data = response.json()
-        print("Access Token:", token_data.get('access_token'))
         TokenValid = check_roblox_token(token_data.get('access_token'))
-        if TokenValid == True:
+        if TokenValid != False:
+
+            newUser = UserBase.objects.create(
+                robloxID = TokenValid.get('userID'),
+                username = TokenValid.get('username')
+            )
+
+            newUser.save()
+
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=401)

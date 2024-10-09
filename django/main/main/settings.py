@@ -29,9 +29,12 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-
+# CHANGE TO .ENV
 ROBLOX_CLIENT_ID = "5136978817459521000"
 ROBLOX_CLIENT_SECRET = os.getenv('ROBLOX_CLIENT_SECRET')
+
+# CHANGE TO .ENV
+SERVER_NAME = "BotBloxer"
 
 ALLOWED_HOSTS = []
 

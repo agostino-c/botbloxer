@@ -29,10 +29,15 @@ def check_roblox_token(code):
 
 
     response = requests.get(user_url, headers=headers)
-    print(response.json())
+    response_data = response.json()
 
     if response.status_code == 200:
-        return True
+        data = {
+            'userID': response_data.get('sub'),
+            'username': response_data.get('name')
+        }
+        # return True
+        return data
     else:
         return False
     
